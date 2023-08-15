@@ -4,7 +4,7 @@
 
 This repository contains a Function App written in C# that leverages PGP (Pretty Good Privacy) to decrypt data in Azure's serverless environment. 
 
-### What is PGP?
+## What is PGP?
 
 PGP (Pretty Good Privacy) is a data encryption and decryption program that provides cryptographic privacy and authentication. It's widely used for securing emails, files, and more. It employs a combination of symmetric and asymmetric cryptography to ensure the security and confidentiality of the data.
 
@@ -50,7 +50,7 @@ Note that we can also use *Passphrase Protection* to add an additional later of 
 
 ## Code Explanation
 
-#### Function Trigger:
+### Function Trigger:
 
 ```csharp
 public static async Task Run(
@@ -61,7 +61,7 @@ public static async Task Run(
 
 This function is triggered whenever a new blob is added to the *'landingzone'* container in Azure Blob Storage, the blob's file name should end up with *'.pgp'*. The blob's content is read as a Stream and passed to the function. The blob's name is captured using the {name} parameter, and logging capabilities are provided by the ILogger instance.
 
-#### Azure Blob Client Setup:
+### Azure Blob Client Setup:
 
 ```csharp
 // NOTE: The privateKey and password variable is just a placeholder. You'd ideally get this from a secure source like Azure Key Vault.
@@ -77,7 +77,7 @@ The PGP PrivateKey should be stored in an Azure KeyVault or another secure envir
 
 The *'BlobContainerClient'* connects to Azure Blob Storage specifically to the 'landingzone' container. It sets up a *'BlobClient'* instance pointing to where the decrypted file should save. You can update *'containerClient'* to another Blob Storage container if you need to seperate both encryption and decryption files.
 
-#### Decryption Process:
+### Decryption Process:
 
 ```csharp
 using (PGP pgp = new PGP())
